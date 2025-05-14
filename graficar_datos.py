@@ -36,6 +36,37 @@ try:
     print(f"Gráfica guardada como '{nombre_archivo_grafica_genero}'.")
     plt.close()
 
+
+    #Histograma de Edades
+    columna_edad = "EDAD"
+    # Asegúrate de convertir la columna a numérica si es necesario
+    df['EDAD'] = pd.to_numeric(df['EDAD'], errors='coerce')
+    df_edad_valida = df.dropna(subset=['EDAD']) # Eliminar valores no numéricos
+
+    plt.figure(figsize=(10, 6))
+    plt.hist(df_edad_valida['EDAD'], bins=15, edgecolor='black')
+    plt.title("Distribución de Edades")
+    plt.xlabel("Edad")
+    plt.ylabel("Frecuencia")
+    nombre_archivo_grafica_edad = "histograma_edad.png"
+    plt.savefig(nombre_archivo_grafica_edad)
+    print(f"Gráfica guardada como '{nombre_archivo_grafica_edad}'.")
+    plt.close()
+
+    #Gráfico de Barras Apiladas de Consumo de Sustancias por Género (Ejemplo con Alcohol y Tabaco)
+    sustancias = ["ALCOHOL", "TABACO"]
+    df_sustancias_genero = df.groupby('SEXO')[sustancias].sum()
+    df_sustancias_genero.plot(kind='bar', stacked=True, figsize=(8, 6))
+    plt.title("Consumo de Alcohol y Tabaco por Género")
+    plt.xlabel("Género")
+    plt.ylabel("Cantidad de Casos")
+    plt.xticks(rotation=0)
+    plt.legend(title="Sustancia")
+    nombre_archivo_grafica_sustancias_genero = "sustancias_por_genero.png"
+    plt.savefig(nombre_archivo_grafica_sustancias_genero)
+    print(f"Gráfica guardada como '{nombre_archivo_grafica_sustancias_genero}'.")
+    plt.close()
+
     # Ejemplo 2: Histograma de una columna numérica (ej. 'edad' - si tuvieras esa columna)
     # columna_numerica = "edad"
     # plt.figure(figsize=(8, 6))
